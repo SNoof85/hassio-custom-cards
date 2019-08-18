@@ -18,6 +18,8 @@ class BarometerGaugeCard extends HTMLElement {
     const apitoken = cardConfig.apitoken;
     let minmaxhistory = cardConfig.minmaxhistory;
     let needle = cardConfig.needle;
+    let host = cardConfig.host;
+    let port = cardConfig.port;
       
     function getMax(arr, prop) {
         var max;
@@ -42,7 +44,7 @@ class BarometerGaugeCard extends HTMLElement {
     let notnowIso = notnow.toISOString();
     
     function getApiData() {
-    return fetch('http://hassio.local:8123/api/history/period/'+ notnowIso + '?filter_entity_id=' + cardConfig.entity + '&end_time=' + nowIso, { headers })
+    return fetch('https://'+ip+':'+port+'/api/history/period/'+ notnowIso + '?filter_entity_id=' + cardConfig.entity + '&end_time=' + nowIso, { headers })
         .then(response => response.json())
         .then((responseData) => {
         return responseData;
